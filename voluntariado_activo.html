@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voluntariado Activo</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    
+    <header class="header">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="Guardian Zero Logo">
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="voluntariado_activo.html">Voluntariado Activo</a></li>
+                <li><a href="contactar_rapidamente.html">Contactar Rápidamente</a></li>
+                <li><a href="comunidad_guardians.html">Comunidad Guardian's</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <img src="images/fondovolu.jpg" alt="Voluntarios en acción">
+            <div class="hero-text">
+                <h1>¡Postúlate como voluntario activo!</h1>
+            </div>
+        </section>
+
+        <section class="content">
+            <h2>Lista de Voluntarios</h2>
+            <!-- Aquí se llenarán los datos dinámicamente -->
+            <div id="voluntarios"></div>
+
+            <h2>Formulario de Registro</h2>
+            <form id="formularioVoluntario">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" name="edad" required>
+
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" name="correo" required>
+
+                <label for="habilidades">Habilidades:</label>
+                <input type="text" id="habilidades" name="habilidades" placeholder="Ejemplo: Primeros auxilios" required>
+
+                <label for="disponibilidad">Disponibilidad:</label>
+                <input type="text" id="disponibilidad" name="disponibilidad" placeholder="Ejemplo: Inmediata" required>
+
+                <button type="submit">Registrar Voluntario</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>
+            Ofrecemos por y para ti un mundo más seguro. Guardian Zero: ¡Juntos somos más fuertes!
+        </p>
+        <div class="social-media">
+            <a href="#"><img src="images/facebook.jpg" alt="Facebook"></a>
+            <a href="#"><img src="images/instagram.jpg" alt="Instagram"></a>
+            <a href="#">Política de Privacidad y Protección de Datos Personales</a>
+            <a href="nosotros.html">Sobre nosotros</a>
+        </div>
+    </footer>
+
+    <script>
+        // Cargar datos de "voluntariadoActivo" del archivo JSON
+        fetch('database.json')
+            .then(response => response.json())
+            .then(data => {
+                const voluntarios = data.voluntariadoActivo;
+                const container = document.getElementById('voluntarios');
+                
+                voluntarios.forEach(voluntario => {
+                    const div = document.createElement('div');
+                    div.classList.add('voluntario');
+                    div.innerHTML = `
+                        <h3>${voluntario.nombre}</h3>
+                        <p>Edad: ${voluntario.edad}</p>
+                        <p>Correo: ${voluntario.correo}</p>
+                        <p>Habilidades: ${voluntario.habilidades.join(', ')}</p>
+                        <p>Disponibilidad: ${voluntario.disponibilidad}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            })
+            .catch(error => console.error('Error cargando los datos:', error));
+
+        // Manejar el envío del formulario para registrar voluntario
+        const formulario = document.getElementById('formularioVoluntario');
+        formulario.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const edad = document.getElementById('edad').value;
+            const correo = document.getElementById('correo').value;
+            const habilidades = document.getElementById('habilidades').value.split(',').map(item => item.trim());
+            const disponibilidad = document.getElementById('disponibilidad').value;
+
+            const container = document.getElementById('voluntarios');
+            const div = document.createElement('div');
+            div.classList.add('voluntario');
+            div.innerHTML = `
+                <h3>${nombre}</h3>
+                <p>Edad: ${edad}</p>
+                <p>Correo: ${correo}</p>
+                <p>Habilidades: ${habilidades.join(', ')}</p>
+                <p>Disponibilidad: ${disponibilidad}</p>
+            `;
+            container.appendChild(div);
+
+            formulario.reset();
+            alert('Voluntario registrado correctamente (solo en esta sesión).');
+        });
+    </script>
+</body>
+</html>

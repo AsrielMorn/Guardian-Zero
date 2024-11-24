@@ -1,0 +1,32 @@
+{
+    "contactarRapidamente": [
+        {
+            "nombre": "Juan Pérez",
+            "telefono": "+52 123 456 7890",
+            "correo": "juan.perez@example.com",
+            "mensaje": "Urgente: Necesito ayuda en zona inundada."
+        },
+        {
+            "nombre": "María López",
+            "telefono": "+52 987 654 3210",
+            "correo": "maria.lopez@example.com",
+            "mensaje": "Solicito apoyo para búsqueda en área afectada."
+        }
+    ],
+    "voluntariadoActivo": [
+        {
+            "nombre": "Carlos García",
+            "edad": 29,
+            "correo": "carlos.garcia@example.com",
+            "habilidades": ["Primeros auxilios", "Rescate acuático"],
+            "disponibilidad": "Inmediata"
+        },
+        {
+            "nombre": "Ana Martínez",
+            "edad": 24,
+            "correo": "ana.martinez@example.com",
+            "habilidades": ["Logística", "Gestión de equipos"],
+            "disponibilidad": "Fines de semana"
+        }
+    ]
+}

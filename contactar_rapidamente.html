@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactar Rápidamente</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    
+    <header class="header">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="Guardian Zero Logo">
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="voluntariado_activo.html">Voluntariado Activo</a></li>
+                <li><a href="contactar_rapidamente.html">Contactar Rápidamente</a></li>
+                <li><a href="comunidad_guardians.html">Comunidad Guardian's</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <img src="images/fondoserr.png" alt="Voluntarios en acción">
+            <div class="hero-text">
+                <h1>¡Contacta rápidamente para solicitar un equipo de rescate!</h1>
+            </div>
+        </section>
+
+        <section class="content">
+            <h2>Lista de Contactos Rápidos</h2>
+            <!-- Aquí se llenarán los datos dinámicamente -->
+            <div id="contactos"></div>
+
+            <h2>Agregar Nuevo Contacto</h2>
+            <form id="formularioContacto">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" required>
+
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" name="correo" required>
+
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" required></textarea>
+                
+                <button type="submit">Agregar Contacto</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>
+            Ofrecemos por y para ti un mundo más seguro. Guardian Zero: ¡Juntos somos más fuertes!
+        </p>
+        <div class="social-media">
+            <a href="#"><img src="images/facebook.jpg" alt="Facebook"></a>
+            <a href="#"><img src="images/instagram.jpg" alt="Instagram"></a>
+            <a href="#">Política de Privacidad y Protección de Datos Personales</a>
+            <a href="nosotros.html">Sobre nosotros</a>
+        </div>
+    </footer>
+
+    <script>
+        // Cargar datos de "contactarRapidamente" del archivo JSON
+        fetch('database.json')
+            .then(response => response.json())
+            .then(data => {
+                const contactos = data.contactarRapidamente;
+                const container = document.getElementById('contactos');
+                
+                contactos.forEach(contacto => {
+                    const div = document.createElement('div');
+                    div.classList.add('contacto');
+                    div.innerHTML = `
+                        <h3>${contacto.nombre}</h3>
+                        <p>Teléfono: ${contacto.telefono}</p>
+                        <p>Correo: ${contacto.correo}</p>
+                        <p>Mensaje: ${contacto.mensaje}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            })
+            .catch(error => console.error('Error cargando los datos:', error));
+
+        // Manejar el envío del formulario para agregar contacto
+        const formulario = document.getElementById('formularioContacto');
+        formulario.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const telefono = document.getElementById('telefono').value;
+            const correo = document.getElementById('correo').value;
+            const mensaje = document.getElementById('mensaje').value;
+
+            const container = document.getElementById('contactos');
+            const div = document.createElement('div');
+            div.classList.add('contacto');
+            div.innerHTML = `
+                <h3>${nombre}</h3>
+                <p>Teléfono: ${telefono}</p>
+                <p>Correo: ${correo}</p>
+                <p>Mensaje: ${mensaje}</p>
+            `;
+            container.appendChild(div);
+
+            formulario.reset();
+            alert('Nuevo contacto agregado (solo en esta sesión).');
+        });
+    </script>
+</body>
+</html>
